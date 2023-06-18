@@ -1,0 +1,11 @@
+<form action="/students/" method="get">
+
+{% for s in students %}
+{{ s.first_name }}
+{{ s.last_name }}
+{{ s.age }}
+{{ s.city }}
+{{ t.id }} <br>
+
+{% endfor %}
+</form>
