@@ -9,12 +9,15 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
+
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -23,14 +26,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-#y4i3yq)!0c-$y7%%ghm5g1bpf0*%4k_)^air)-$rbqb$!w^n)"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if not IS_HEROKU_APP:
+    DEBUG = True
 
-ALLOWED_HOSTS = []
-
+# On Heroku, it's safe to use a wildcard for `ALLOWED_HOSTS``, since the Heroku router performs
+# validation of the Host header in the incoming HTTP request. On other platforms you may need
+# to list the expected hostnames explicitly to prevent HTTP Host header attacks. See:
+# https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-ALLOWED_HOSTS
+if IS_HEROKU_APP:
+    ALLOWED_HOSTS = ["*"]
+else:
+    ALLOWED_HOSTS = []
 
 # Application definition
 
 INSTALLED_APPS = [
+    "whitenoise.runserver_nostatic",
     "students.apps.StudentsConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -42,6 +53,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -55,7 +67,7 @@ ROOT_URLCONF = "my_site.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -70,9 +82,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "my_site.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+# DATABASES = {"default": dj_database_url.config(conn_max_age=600, ssl_require=True)}
 
 DATABASES = {
     "default": {
@@ -120,7 +133,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+# STATIC_URL = "static/"
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
 STATIC_URL = "static/"
+STORAGES = {
+    # Enable WhiteNoise's GZip and Brotli compression of static assets:
+    # https://whitenoise.readthedocs.io/en/latest/django.html#add-compression-and-caching-support
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

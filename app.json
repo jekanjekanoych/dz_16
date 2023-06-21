@@ -1,0 +1,20 @@
+{
+  "addons": [
+    "heroku-postgresql:standard-0"
+  ],
+  "environments": {
+    "review": {
+      "addons": [
+        "heroku-postgresql:mini"
+      ]
+    },
+    "test": {
+      "addons": [
+        "heroku-postgresql:mini"
+      ]
+    }
+  },
+  "scripts": {
+    "postdeploy": "python manage.py migrate --noinput"
+  }
+}
