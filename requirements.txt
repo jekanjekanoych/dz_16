@@ -3,7 +3,9 @@ black==23.3.0
 botocore==1.29.155
 click==8.1.3
 colorama==0.4.6
+dj-database-url==2.0.0
 Django==4.2.2
+gunicorn==20.1.0
 jmespath==1.0.1
 mypy-extensions==1.0.0
 packaging==23.1
@@ -19,3 +21,4 @@ tomli==2.0.1
 typing_extensions==4.6.3
 tzdata==2023.3
 urllib3==1.26.16
+whitenoise==6.4.0

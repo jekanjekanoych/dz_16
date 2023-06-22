@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-# from django.urls import reverse
+from django.urls import reverse
 
 from students.forms import StudentForm
 from students.models import Student
@@ -11,16 +11,15 @@ def index(request):
 
 
 def student(request):
-    if request.method == "POST":
-        form = StudentForm(request.POST)
-        if form.is_valid():
-            form.save()
-
-            return HttpResponseRedirect("/students/")
-    else:
-        s = Student.objects.last()
-        form = StudentForm(instance=s)
+    form = StudentForm(request.POST or None)
+    if request.method == "GET":
         return render(request, "student.html", {"form": form})
+
+    if form.is_valid():
+        form.save()
+
+        return redirect(reverse(students))
+    return render(request, "student.html", {"form": form})
 
 
 def students(request):
