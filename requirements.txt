@@ -1,10 +1,13 @@
 asgiref==3.7.2
 black==23.3.0
 botocore==1.29.155
+cffi==1.15.1
 click==8.1.3
 colorama==0.4.6
 dj-database-url==2.0.0
 Django==4.2.2
+gevent==22.10.2
+greenlet==2.0.2
 gunicorn==20.1.0
 jmespath==1.0.1
 mypy-extensions==1.0.0
@@ -13,6 +16,7 @@ pathspec==0.11.1
 platformdirs==3.5.3
 psycopg2==2.9.6
 psycopg2-binary==2.9.6
+pycparser==2.21
 python-dateutil==2.8.2
 s3transfer==0.6.1
 six==1.16.0
@@ -22,3 +26,5 @@ typing_extensions==4.6.3
 tzdata==2023.3
 urllib3==1.26.16
 whitenoise==6.4.0
+zope.event==4.6
+zope.interface==6.0
