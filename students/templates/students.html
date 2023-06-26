@@ -1,11 +1,10 @@
-
-
 {% for s in students %}
 {{ s.first_name }}
 {{ s.last_name }}
 {{ s.age }}
 {{ s.city }}
-{{ t.id }} <br>
+{{ s.id }} <br>
+<img src=" {{ s.diploma.url }}" alt="{{ s.id }}">
 {% endfor %}
 
- <a href="{% url 'student' %}">New student: </a>
+<a href="{% url 'student' %}">New student: </a>

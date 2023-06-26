@@ -87,17 +87,17 @@ WSGI_APPLICATION = "my_site.wsgi.application"
 
 DATABASES = {"default": dj_database_url.config(conn_max_age=600, ssl_require=True)}
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "postgres",
-#         "USER": "postgres",
-#         "PASSWORD": "password",
-#         "HOST": "127.0.0.1",
-#         "PORT": "5432",
-#     }
-# }
-
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "dcruuo6vt1917t",
+        "USER": "gnkojmahmkeufc",
+        "PASSWORD": "a621038efb8496a060c1bbb5e08e0bc4bb48bd1879b5655d5485d8595499d9cf",
+        "HOST": "ec2-44-213-228-107.compute-1.amazonaws.com",
+        "PORT": "5432",
+    }
+}
+#
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -138,6 +138,9 @@ USE_TZ = True
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATIC_URL = "static/"
 STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+    },
     # Enable WhiteNoise's GZip and Brotli compression of static assets:
     # https://whitenoise.readthedocs.io/en/latest/django.html#add-compression-and-caching-support
     "staticfiles": {
@@ -149,3 +152,13 @@ STORAGES = {
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+MEDIA_ROOT = r"D:\python\folder_16\my_site\media"
+
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+
+AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+
+# django.core.files.storage.FileSystemStorage

@@ -11,7 +11,7 @@ def index(request):
 
 
 def student(request):
-    form = StudentForm(request.POST or None)
+    form = StudentForm(request.POST, request.FILES)
     if request.method == "GET":
         return render(request, "student.html", {"form": form})
 
