@@ -87,16 +87,16 @@ WSGI_APPLICATION = "my_site.wsgi.application"
 
 DATABASES = {"default": dj_database_url.config(conn_max_age=600, ssl_require=True)}
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "dcruuo6vt1917t",
-        "USER": "gnkojmahmkeufc",
-        "PASSWORD": "a621038efb8496a060c1bbb5e08e0bc4bb48bd1879b5655d5485d8595499d9cf",
-        "HOST": "ec2-44-213-228-107.compute-1.amazonaws.com",
-        "PORT": "5432",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "dcruuo6vt1917t",
+#         "USER": "gnkojmahmkeufc",
+#         "PASSWORD": "a621038efb8496a060c1bbb5e08e0bc4bb48bd1879b5655d5485d8595499d9cf",
+#         "HOST": "ec2-44-213-228-107.compute-1.amazonaws.com",
+#         "PORT": "5432",
+#     }
+# }
 #
 
 # Password validation
@@ -162,3 +162,6 @@ AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
 
 # django.core.files.storage.FileSystemStorage
+
+
+# storages.backends.s3boto3.S3Boto3Storage
